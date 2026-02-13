@@ -1,9 +1,13 @@
-public class basic {
+import java.util.Scanner;
+public class  basic{
    public static void main(String[] args) {
-    System.out.println("hello");
-    System.out.println("world");
-    int a=3;
-    int b=4;
-    System.out.println(a+b);
+     Scanner sc=new Scanner(System.in);
+     int[] arr=new int[3];
+     for(int i=0;i<3;i++){
+      arr[i]=sc.nextInt();
+     }
+     for(int i=0;i<3;i++){
+      System.out.print(2*arr[i]+" ");
+     }
    }
 }
