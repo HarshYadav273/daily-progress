@@ -8,6 +8,7 @@ public class  basic{
      }
      for(int i=0;i<3;i++){
       System.out.print(2*arr[i]+" ");
+      System.out.println("hkih");
      }
    }
 }
