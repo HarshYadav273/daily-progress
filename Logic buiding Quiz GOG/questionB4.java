@@ -5,6 +5,6 @@ public class questionB4 {
         for(int i = 1; i <= n; i++){
             squareSum = squareSum + (i*i);
         }
-        System.out.println(squareSum);
+      
     }
 }
