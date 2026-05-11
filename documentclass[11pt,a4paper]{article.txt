@@ -1,0 +1,450 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{longtable}
+
+\definecolor{brand}{HTML}{C8441A}
+\definecolor{textdark}{HTML}{2A1F1A}
+\definecolor{soft}{HTML}{FFF8F2}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=brand,
+    urlcolor=brand
+}
+
+\titleformat{\section}
+  {\large\bfseries\color{brand}}
+  {\thesection}{0.8em}{}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{textdark}}
+  {\thesubsection}{0.8em}{}
+
+\setlist[itemize]{noitemsep, topsep=4pt}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{Kala Tales Website Guide}}\\[6pt]
+    {\large Website Workflow, Folder Structure and Editing Guide}\\[12pt]
+    \textbf{Prepared for Client Review}\\[4pt]
+    \today
+\end{center}
+
+\vspace{1cm}
+
+\section{Website Overview}
+
+The Kala Tales website is a React-based product showcase and shopping experience for handcrafted candles and macrame products. The website allows users to browse products, filter by category and price, view product details, add products to cart, and contact the brand for enquiries.
+
+The website includes the following main pages:
+
+\begin{itemize}
+    \item Home page
+    \item All Products page
+    \item Candles page
+    \item Macrame page
+    \item Product Detail page
+    \item Cart page
+    \item About Us page
+    \item Contact page
+\end{itemize}
+
+\section{Technology Used}
+
+\begin{longtable}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Technology} & \textbf{Purpose} \\
+\hline
+React & Main frontend framework used to build the website interface. \\
+\hline
+Vite & Development and build tool for fast website loading and production builds. \\
+\hline
+React Router & Used for page navigation such as Home, Products, Candles, Macrame, Cart, Contact, etc. \\
+\hline
+Tailwind CSS & Used for styling, layout, spacing, colors, and responsive design. \\
+\hline
+Google Sheet Integration & Used to edit existing product details such as name, price, description, stock status, and category data. \\
+\hline
+\end{longtable}
+
+\section{Main Website Workflow}
+
+The website flow works as follows:
+
+\begin{enumerate}
+    \item The browser opens \texttt{index.html}.
+    \item \texttt{src/main.jsx} loads the React application.
+    \item \texttt{src/App.jsx} controls the main layout and website routes.
+    \item Common components like the announcement banner, navbar, cart panel, and footer are loaded.
+    \item Page components are shown based on the selected route.
+    \item Product data is loaded through \texttt{src/hooks/useProducts.js}.
+    \item Product cards, product detail pages, filters, and cart features use this product data.
+\end{enumerate}
+
+\section{Folder Structure}
+
+\begin{longtable}{|p{5cm}|p{9cm}|}
+\hline
+\textbf{Folder/File} & \textbf{Purpose} \\
+\hline
+\texttt{index.html} & Main HTML file where the React website is mounted. \\
+\hline
+\texttt{src/main.jsx} & Entry point of the React application. \\
+\hline
+\texttt{src/App.jsx} & Main website structure, routes, banner, navbar, cart panel, footer, and pages. \\
+\hline
+\texttt{src/components/} & Reusable website sections such as Navbar, Footer, Product Card, Cart Panel, Hero, and Announcement Banner. \\
+\hline
+\texttt{src/pages/} & Full website pages such as Home, Products, Candles, Macrame, About Us, Contact, Cart, and Product Detail. \\
+\hline
+\texttt{src/data/products.js} & Local backup product data and image mapping. \\
+\hline
+\texttt{src/hooks/useProducts.js} & Product loading logic. It connects product details with the sheet data and keeps local backup data available. \\
+\hline
+\texttt{src/context/CartContext.jsx} & Cart logic such as adding products, removing products, quantity changes, and cart state. \\
+\hline
+\texttt{src/Assests/Images/} & Product images, logo, hero images, and other website images. \\
+\hline
+\texttt{public/} & Public files used during hosting and deployment. \\
+\hline
+\texttt{dist/} & Final production build generated after running the build command. \\
+\hline
+\end{longtable}
+
+\section{Important Code Flow}
+
+\subsection{Application Routing}
+
+The file \texttt{src/App.jsx} controls website routing.
+
+\begin{itemize}
+    \item \texttt{/} shows the Home page.
+    \item \texttt{/products} shows all product sections.
+    \item \texttt{/candles} shows candle products.
+    \item \texttt{/macrame} shows macrame products.
+    \item \texttt{/product/:id} shows individual product details.
+    \item \texttt{/cart} shows the cart page.
+    \item \texttt{/about} shows the About Us page.
+    \item \texttt{/contact} shows the Contact page.
+\end{itemize}
+
+\subsection{Product Data Flow}
+
+Product data is managed through:
+
+\begin{itemize}
+    \item \texttt{src/data/products.js}
+    \item \texttt{src/hooks/useProducts.js}
+\end{itemize}
+
+The website first has local product data available so the site can load quickly. The product hook then reads the connected sheet data and updates product information such as product name, price, description, stock status, category, and subcategory.
+
+Product images are mapped from the local website image folder, so the visual layout remains consistent.
+
+\section{Editing Product Details}
+
+Existing product details can be edited through the connected sheet.
+
+The commonly editable fields are:
+
+\begin{longtable}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Field} & \textbf{Meaning} \\
+\hline
+\texttt{id} & Unique product ID. This should remain unchanged. \\
+\hline
+\texttt{name} & Product name shown on the website. \\
+\hline
+\texttt{sku} & Product SKU/code shown on product cards. \\
+\hline
+\texttt{price} & Product price shown on the website. \\
+\hline
+\texttt{category} & Main category, for example Candles or Macrame. \\
+\hline
+\texttt{subcategory} & Subcategory, for example Wall Hangings, Keychains, or Coasters. \\
+\hline
+\texttt{filterCategory} & Filter label used on category pages. \\
+\hline
+\texttt{inStock} & Controls whether product is available or shown as out of stock. \\
+\hline
+\texttt{description} & Product description shown on the product detail page. \\
+\hline
+\end{longtable}
+
+\subsection{Stock Status}
+
+To show a product as available:
+
+\begin{verbatim}
+inStock = TRUE
+\end{verbatim}
+
+To show a product as out of stock:
+
+\begin{verbatim}
+inStock = FALSE
+\end{verbatim}
+
+When a product is out of stock:
+
+\begin{itemize}
+    \item The product image becomes visually muted.
+    \item An ``Out of Stock'' label appears.
+    \item The Add to Cart button becomes disabled.
+\end{itemize}
+
+\section{Announcement Strip On/Off Guide}
+
+The announcement strip is controlled in:
+
+\begin{verbatim}
+src/components/AnnouncementBanner.jsx
+\end{verbatim}
+
+To show the announcement strip:
+
+\begin{verbatim}
+const SHOW_BANNER = true;
+\end{verbatim}
+
+To hide the announcement strip:
+
+\begin{verbatim}
+const SHOW_BANNER = false;
+\end{verbatim}
+
+The announcement text can be edited in the same file:
+
+\begin{verbatim}
+const BANNER = {
+  event: "Mother's Day",
+  message: "Celebrate Mom with love - enjoy",
+  discount: "15% OFF",
+  suffix: "sitewide this Mother's Day!",
+};
+\end{verbatim}
+
+\section{Show or Hide Product Sections}
+
+Product sections are controlled in the page files.
+
+\subsection{Home Page Sections}
+
+The Home page is controlled in:
+
+\begin{verbatim}
+src/pages/Home.jsx
+\end{verbatim}
+
+Currently, the Home page shows:
+
+\begin{itemize}
+    \item First 4 candle products
+    \item First 4 macrame products
+\end{itemize}
+
+This is controlled by:
+
+\begin{verbatim}
+candles.slice(0, 4)
+macrame.slice(0, 4)
+\end{verbatim}
+
+To show more or fewer products on the Home page, change the number.
+
+Example:
+
+\begin{verbatim}
+candles.slice(0, 6)
+\end{verbatim}
+
+\subsection{All Products Page Sections}
+
+The All Products page is controlled in:
+
+\begin{verbatim}
+src/pages/Products.jsx
+\end{verbatim}
+
+The sections currently shown are:
+
+\begin{itemize}
+    \item Candles
+    \item Wall Hangings
+    \item Keychains
+    \item Coasters
+\end{itemize}
+
+Each section has a title, subtitle, and product list. A section can be hidden by removing or commenting that section from the \texttt{sections} list.
+
+\subsection{Macrame Page Sections}
+
+The Macrame page is controlled in:
+
+\begin{verbatim}
+src/pages/Macrame.jsx
+\end{verbatim}
+
+The macrame subcategory order is controlled by:
+
+\begin{verbatim}
+const subcategoryOrder = ["Wall Hangings", "Keychains", "Coasters"];
+\end{verbatim}
+
+To hide one subcategory section from the Macrame page, remove its name from this list.
+
+Example:
+
+\begin{verbatim}
+const subcategoryOrder = ["Wall Hangings", "Coasters"];
+\end{verbatim}
+
+This will hide the Keychains section from the Macrame page.
+
+\section{Filters and Price Ranges}
+
+\subsection{Candles Filters}
+
+Candle filters are controlled in:
+
+\begin{verbatim}
+src/pages/Candles.jsx
+\end{verbatim}
+
+The category filter list is:
+
+\begin{verbatim}
+const candleCategories = [
+  "All",
+  "Classic",
+  "Hammered",
+  "Decorative",
+  "Filigree",
+  "Signature",
+  "Premium",
+];
+\end{verbatim}
+
+The price ranges are also controlled in the same file.
+
+\subsection{Macrame Filters}
+
+Macrame filters are controlled in:
+
+\begin{verbatim}
+src/pages/Macrame.jsx
+\end{verbatim}
+
+The category filter list is:
+
+\begin{verbatim}
+const macrameCategories = [
+  "All",
+  "Natural",
+  "Minimal",
+  "Boho",
+  "Classic",
+  "Decorative",
+  "Braided",
+  "Assorted",
+  "Multicolor",
+];
+\end{verbatim}
+
+The price ranges are also controlled in the same file.
+
+\section{Cart Workflow}
+
+The cart system is managed by:
+
+\begin{verbatim}
+src/context/CartContext.jsx
+src/components/CartPanel.jsx
+src/pages/Cart.jsx
+\end{verbatim}
+
+The cart workflow is:
+
+\begin{enumerate}
+    \item User clicks Add to Cart on a product.
+    \item Product is stored in cart state.
+    \item Cart panel can show selected items.
+    \item Cart page displays final selected products.
+    \item User can review product quantity and cart details.
+\end{enumerate}
+
+If a product is marked out of stock, the Add to Cart button is disabled.
+
+\section{Image Management}
+
+Product and website images are stored in:
+
+\begin{verbatim}
+src/Assests/Images/
+\end{verbatim}
+
+Product images are imported inside:
+
+\begin{verbatim}
+src/data/products.js
+\end{verbatim}
+
+Example:
+
+\begin{verbatim}
+import PMJ1 from "../Assests/Images/PMJ 1.jpg";
+\end{verbatim}
+
+Each product then uses the imported image:
+
+\begin{verbatim}
+image: PMJ1
+\end{verbatim}
+
+For best results, product images should be optimized and named clearly.
+
+\section{Build and Deployment}
+
+To run the website locally:
+
+\begin{verbatim}
+npm run dev
+\end{verbatim}
+
+To create a production build:
+
+\begin{verbatim}
+npm run build
+\end{verbatim}
+
+The production-ready files are generated inside:
+
+\begin{verbatim}
+dist/
+\end{verbatim}
+
+These files can be uploaded to the hosting platform.
+
+\section{Client Maintenance Notes}
+
+\begin{itemize}
+    \item Product prices, descriptions, names, categories, and stock status can be edited through the connected sheet.
+    \item Product IDs should not be changed because they are used for product detail routing and image mapping.
+    \item Announcement strip can be turned on or off from \texttt{AnnouncementBanner.jsx}.
+    \item Home page product count can be adjusted using the \texttt{slice()} value.
+    \item Product sections can be shown or hidden from their respective page files.
+    \item Product images should be updated carefully because image paths are connected inside the code.
+\end{itemize}
+
+\section{Final Summary}
+
+The Kala Tales website is structured in a clean and maintainable way. The main code is divided into pages, reusable components, product data, hooks, and cart context. This makes it easy to manage the website layout, product display, filters, announcement strip, product availability, and cart workflow.
+
+\end{document}
